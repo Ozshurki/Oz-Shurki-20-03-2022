@@ -2,6 +2,7 @@ import React from 'react';
 import {Link} from 'react-router-dom';
 import "./NavLinks.css";
 import {motion} from "framer-motion";
+import {RootStateOrAny, useSelector} from "react-redux";
 
 interface Props {
     isMobile: boolean;
@@ -12,6 +13,8 @@ const NavLinks: React.FC<Props> = (props) => {
 
     const animateFrom = {opacity: 0, y: -40};
     const animateTo = {opacity: 1, y: 0};
+
+    const savedCityQty:number = useSelector((state:RootStateOrAny )=> state.favorites.citiesQuantity);
 
     const onClickHandler = () =>{
         props.isMobile && props.closeMobileMenu();
@@ -34,7 +37,7 @@ const NavLinks: React.FC<Props> = (props) => {
                 <Link className="link"
                       to="/favorites"
                       onClick={onClickHandler}>Favorites
-                    <span className="cart-badge">3</span>
+                    <span className="cart-badge">{savedCityQty}</span>
                 </Link>
             </motion.li>
         </ul>

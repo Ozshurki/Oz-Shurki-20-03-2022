@@ -1,12 +1,12 @@
-import React, {useEffect} from "react";
-import {WiDegrees} from "react-icons/wi";
+import React, {useEffect, useState} from "react";
 import {GrFavorite} from "react-icons/gr";
 import {RiCelsiusFill} from "react-icons/ri";
 
-import CardsContainer from "../cards-container/CardsContainer";
 import "./HomeContent.css";
 import Card from "../card/Card";
 import classNames from "classnames";
+import {favoritesActions} from "../../store/slices/favorites";
+import {useDispatch} from "react-redux";
 
 const fiveDaysForecast = {
     "Headline": {
@@ -186,11 +186,27 @@ const fiveDaysForecast = {
 
 const HomeContent: React.FC = () => {
 
+    const [cityName, setCityName] = useState<string>("Tel Aviv");
+    const [temperature, setTemperature] = useState<number>(0);
+    const [weatherType, setWeatherType] = useState<string>("");
+
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        setTemperature(fiveDaysForecast.DailyForecasts[0].Temperature.Minimum.Value);
+        setWeatherType(fiveDaysForecast.DailyForecasts[0].Day.IconPhrase);
+    }, []);
+
+    const saveCity = () => {
+        dispatch(favoritesActions.addCity({cityName, temperature, weatherType}));
+    };
+
     return (
         <div className="home-content">
             <div className="row">
                 <div className="current-city">
-                    <div className={classNames("current-city-img",fiveDaysForecast.DailyForecasts[0].Day.IconPhrase.toLowerCase())}/>
+                    <div
+                        className={classNames("current-city-img", fiveDaysForecast.DailyForecasts[0].Day.IconPhrase.toLowerCase())}/>
                     <div className="current-city-content">
                         <div className="city-name">Tel-Aviv</div>
                         <div className="city-degree">25
@@ -201,8 +217,8 @@ const HomeContent: React.FC = () => {
                     </div>
                 </div>
                 <div className="save-city-container">
-                    <GrFavorite color="red" size="1.5rem"/>
-                    <div className="save-city-btn">Add to favorite</div>
+                    <GrFavorite color="red" size="1.5rem" onClick={saveCity}/>
+                    <div className="save-city-btn" onClick={saveCity}>Add to favorite</div>
                 </div>
             </div>
             <div className="row">
@@ -216,7 +232,7 @@ const HomeContent: React.FC = () => {
                         return (
                             <Card key={i}
                                   date={day.Date}
-                                  temperature={parseInt(String(day.Temperature.Minimum.Value))}
+                                  temperature={day.Temperature.Minimum.Value}
                                   weatherType={day.Day.IconPhrase}/>
                         );
                     })

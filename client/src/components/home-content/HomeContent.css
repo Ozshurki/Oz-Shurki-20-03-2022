@@ -72,6 +72,10 @@
     margin: 0 10px;
 }
 
+.save-city-container svg, .save-city-container div{
+    cursor: pointer;
+}
+
 .clouds-type{
     text-align: center;
     margin: 0 auto;
