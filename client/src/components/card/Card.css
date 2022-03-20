@@ -16,18 +16,21 @@
 }
 
 .cloudy{
-    background: linear-gradient(0deg, #282c3400 5%,rgba(0,0,0,0)) ,url("https://w0.peakpx.com/wallpaper/2/173/HD-wallpaper-stunning-display-of-nature-dynamic-forces-sky-storm-weather-cool-lightning-awesome-hot-nature-display-electrical-night.jpg");
+    background: linear-gradient(0deg, #282c3400 5%,rgba(0,0,0,0)) ,url("https://images.unsplash.com/photo-1594156596782-656c93e4d504?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8Y2xvdWR5fGVufDB8fDB8fA%3D%3D&w=1000&q=80");
+    background-size: 100% 100%;
 }
 
 .sunny{
     background: linear-gradient(0deg, #282c3400 5%,rgba(0,0,0,0)) ,url("https://thumbs.dreamstime.com/b/vacation-background-beach-palm-trees-blue-sea-vector-54094165.jpg");
+    background-size: 100% 100%;
 }
 
 .partly-sunny{
     background: linear-gradient(0deg, #282c3400 5%,rgba(0,0,0,0)) ,url("https://www.wkbn.com/wp-content/uploads/sites/48/2021/03/clouds-cloudy-sky-spring-summer-fall-winter-weather-generic-8-1.jpg?w=1280");
+    background-size: 100% 100%;
 }
 
 .mostly-cloudy{
     background: linear-gradient(0deg, #282c3400 5%,rgba(0,0,0,0)) ,url("https://s7d2.scene7.com/is/image/TWCNews/clouds_from_above");
-
+    background-size: 100% 100%;
 }
