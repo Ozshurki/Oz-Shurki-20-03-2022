@@ -1,0 +1,76 @@
+.home-content {
+    display: flex;
+    flex-direction: column;
+    max-width: 1000px;
+    min-height: 550px;
+    margin: 10px auto;
+    border: 1px solid black;
+    border-radius: 5px;
+}
+
+.row {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    min-height: 150px;
+    padding: 10px 0;
+}
+
+.current-city, .save-city-container {
+    font-family: 'Poppins', sans-serif;
+}
+
+.row:nth-of-type(1) {
+    display: flex;
+    justify-content: space-between;
+}
+
+.current-city {
+    display: flex;
+    width: 200px;
+    margin: 0 10px;
+}
+
+.current-city img {
+    max-width: 50%;
+    height: 120px;
+}
+
+.city-content {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    margin-left: 5px;
+}
+
+.city-content div {
+    height: 50%;
+    display: flex;
+    align-items: center;
+}
+
+.save-city-container{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 150px;
+    margin: 0 10px;
+}
+
+.clouds-type{
+    text-align: center;
+    margin: 0 auto;
+    font-family: 'Poppins', sans-serif;
+    font-size: 2rem;
+}
+
+@media (max-width: 400px){
+    .row{
+        flex-direction: column;
+    }
+
+    .current-city{
+        margin-bottom: 10px;
+    }
+}

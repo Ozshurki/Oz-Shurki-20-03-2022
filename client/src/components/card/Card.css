@@ -1,0 +1,33 @@
+.card{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 130px;
+    height: 180px;
+    margin-top: 10px;
+    border-radius: 10px;
+}
+
+.card div{
+    color: white;
+    font-size: 1.2rem;
+}
+
+.cloudy{
+    background: linear-gradient(0deg, #282c3400 5%,rgba(0,0,0,0)) ,url("https://w0.peakpx.com/wallpaper/2/173/HD-wallpaper-stunning-display-of-nature-dynamic-forces-sky-storm-weather-cool-lightning-awesome-hot-nature-display-electrical-night.jpg");
+}
+
+.sunny{
+    background: linear-gradient(0deg, #282c3400 5%,rgba(0,0,0,0)) ,url("https://thumbs.dreamstime.com/b/vacation-background-beach-palm-trees-blue-sea-vector-54094165.jpg");
+}
+
+.partly-sunny{
+    background: linear-gradient(0deg, #282c3400 5%,rgba(0,0,0,0)) ,url("https://www.wkbn.com/wp-content/uploads/sites/48/2021/03/clouds-cloudy-sky-spring-summer-fall-winter-weather-generic-8-1.jpg?w=1280");
+}
+
+.mostly-cloudy{
+    background: linear-gradient(0deg, #282c3400 5%,rgba(0,0,0,0)) ,url("https://s7d2.scene7.com/is/image/TWCNews/clouds_from_above");
+
+}
