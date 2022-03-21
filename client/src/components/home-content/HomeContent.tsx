@@ -193,6 +193,7 @@ const HomeContent: React.FC<Props> = ({cityDetails}) => {
     const [cityName, setCityName] = useState<string>(cityDetails ? cityDetails.cityName : "Tel Aviv");
     const [currentTemperature, setCurrentTemperature] = useState<number>(0);
     const [weatherCurrentType, setWeatherCurrentType] = useState<string>("");
+    const [isDayTime, setIsDayTime] = useState<boolean>(true);
     const [foreCasts, setForeCasts] = useState<any[]>([]);
 
     const savedCities = useSelector((state: RootStateOrAny) => state.favorites.cities);
@@ -234,12 +235,16 @@ const HomeContent: React.FC<Props> = ({cityDetails}) => {
     const saveCity = () => dispatch(favoritesActions.addCity({cityName, currentTemperature, weatherCurrentType}));
     const removeCity = () => dispatch(favoritesActions.deleteCity({cityName}));
 
+    const dayTimeImage = isDayTime ? "https://previews.123rf.com/images/webstocker/webstocker1707/webstocker170700016/82684366-skyline-della-citt%C3%A0-al-giorno-che-mostra-vettore-di-sole-e-nuvole.jpg"
+        : "https://static.vecteezy.com/system/resources/thumbnails/002/042/713/small/city-night-illustration-vector.jpg";
+
     return (
         <div className="home-content">
             <div className="row">
                 <div className="current-city">
-                    <div
-                        className={classNames("current-city-img", fiveDaysForecast.DailyForecasts[0].Day.IconPhrase.toLowerCase())}/>
+                    <div className="current-city-time">
+                        <img src={dayTimeImage} alt="day-time"/>
+                    </div>
                     <div className="current-city-content">
                         <div className="city-name">Tel-Aviv</div>
                         <div className="city-degree">25

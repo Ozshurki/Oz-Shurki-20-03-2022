@@ -45,12 +45,20 @@
     height: 150px;
 }
 
-.current-city-img {
+.current-city-time {
     width: 50%;
     display: flex;
     flex-direction: column;
     align-items: start;
     margin-left: 5px;
+    border-radius: 10px;
+    box-shadow: 0 0 12px var(--border);
+}
+
+.current-city-time img{
+    max-width: 100%;
+    height: 100%;
+    border-radius: 10px;
 }
 
 .city-content div {
