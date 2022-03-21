@@ -4,8 +4,10 @@
     max-width: 1000px;
     min-height: 550px;
     margin: 10px auto;
-    border: 1px solid black;
+    border: 1px solid var(--border);
     border-radius: 5px;
+    background-color: var(--background);
+    box-shadow: 0 0 12px var(--border);
 }
 
 .row {
@@ -66,7 +68,7 @@
 
 .save-city-container{
     display: flex;
-    justify-content: space-between;
+    justify-content: end;
     align-items: center;
     width: 150px;
     margin: 0 10px;
@@ -74,6 +76,10 @@
 
 .save-city-container svg, .save-city-container div{
     cursor: pointer;
+}
+
+.save-city-btn, .delete-city-btn{
+    margin-left: 15px;
 }
 
 .clouds-type{

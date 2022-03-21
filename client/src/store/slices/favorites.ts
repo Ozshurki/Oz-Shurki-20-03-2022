@@ -4,12 +4,12 @@ import {CityType} from "../../shared/types/city";
 
 type sliceState = {
     cities: CityType[];
-    citiesQuantity: number
+    citiesQuantity: number;
 }
 
 const initialState: sliceState = {
     cities: [],
-    citiesQuantity: 0,
+    citiesQuantity: 0
 };
 
 
@@ -34,9 +34,11 @@ const favoritesSlice = createSlice({
             state.citiesQuantity++;
         },
         deleteCity(state, action) {
-            const cityName = action.payload;
-            state.cities = state.cities.filter(city => city.cityName !== cityName);
-        }
+            const wantedCity = action.payload;
+            state.cities = state.cities.filter(city => city.cityName !== wantedCity.cityName);
+
+            state.citiesQuantity--;
+        },
     }
 });
 

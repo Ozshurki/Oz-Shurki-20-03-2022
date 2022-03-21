@@ -14,7 +14,6 @@ const FavoritesContent:React.FC = () => {
         <div className="favorites-content">
             <div className="favorites-items-container">
                 {favoritesCities.map((city:CityType, index:number) => {
-                    console.log(favoritesCities)
                     return(
                         <FavoriteItem key={index} city={city}/>
                     )

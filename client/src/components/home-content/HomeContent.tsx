@@ -1,12 +1,15 @@
 import React, {useEffect, useState} from "react";
 import {GrFavorite} from "react-icons/gr";
+import {MdFavorite, MdFavoriteBorder} from "react-icons/md";
 import {RiCelsiusFill} from "react-icons/ri";
 
 import "./HomeContent.css";
 import Card from "../card/Card";
 import classNames from "classnames";
 import {favoritesActions} from "../../store/slices/favorites";
-import {useDispatch} from "react-redux";
+import {RootStateOrAny, useDispatch, useSelector} from "react-redux";
+import {CityType} from "../../shared/types/city";
+
 
 const fiveDaysForecast = {
     "Headline": {
@@ -190,15 +193,22 @@ const HomeContent: React.FC = () => {
     const [temperature, setTemperature] = useState<number>(0);
     const [weatherType, setWeatherType] = useState<string>("");
 
+    const savedCities = useSelector((state: RootStateOrAny) => state.favorites.cities);
     const dispatch = useDispatch();
 
     useEffect(() => {
         setTemperature(fiveDaysForecast.DailyForecasts[0].Temperature.Minimum.Value);
         setWeatherType(fiveDaysForecast.DailyForecasts[0].Day.IconPhrase);
+
+
     }, []);
 
     const saveCity = () => {
         dispatch(favoritesActions.addCity({cityName, temperature, weatherType}));
+    };
+
+    const removeCity = () => {
+        dispatch(favoritesActions.deleteCity({cityName}));
     };
 
     return (
@@ -217,8 +227,16 @@ const HomeContent: React.FC = () => {
                     </div>
                 </div>
                 <div className="save-city-container">
-                    <GrFavorite color="red" size="1.5rem" onClick={saveCity}/>
-                    <div className="save-city-btn" onClick={saveCity}>Add to favorite</div>
+                    {!savedCities.find((existItem: CityType) => existItem.cityName === cityName) ?
+                        <>
+                            <MdFavoriteBorder color="black" size="1.9rem" onClick={saveCity}/>
+                            <div className="save-city-btn" onClick={saveCity}>Add to favorites</div>
+                        </> :
+                        <>
+                            <MdFavorite color="black" size="2.5rem" onClick={removeCity}/>
+                            <div className="delete-city-btn" onClick={removeCity}>Remove from favorites</div>
+                        </>
+                    }
                 </div>
             </div>
             <div className="row">
