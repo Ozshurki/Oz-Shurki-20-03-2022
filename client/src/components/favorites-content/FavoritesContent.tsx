@@ -13,7 +13,8 @@ const FavoritesContent:React.FC = () => {
     return(
         <div className="favorites-content">
             <div className="favorites-items-container">
-                {favoritesCities.map((city:CityType, index:number) => {
+
+                {favoritesCities.length === 0 ? <h1 className="favorites-is-empty-msg">Your favorites is empty</h1> : favoritesCities.map((city:CityType, index:number) => {
                     return(
                         <FavoriteItem key={index} city={city}/>
                     )

@@ -16,7 +16,7 @@ const MobileNavBar: React.FC<Props> = (props) => {
     }, 0);
 
     return (
-        <nav className={classNames('mobile-navbar', isOpen && 'test')}>
+        <nav className={classNames('mobile-navbar', isOpen && 'border')}>
             <NavLinks isMobile={true}
                       closeMobileMenu={props.closeMobileMenu}/>
         </nav>

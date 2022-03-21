@@ -21,13 +21,13 @@ const city = [
     }
 ];
 
-interface dayForeCastInt{
+interface dayForeCastInt {
     date: string;
     temperature: number;
     weatherType: string;
 }
 
-interface CardsContainerInt{
+interface CardsContainerInt {
     foreCast: dayForeCastInt[];
 }
 
@@ -40,7 +40,8 @@ const CardsContainer: React.FC<CardsContainerInt> = (props) => {
                     <Card key={i}
                           date={day.date}
                           temperature={parseInt(String(day.temperature))}
-                          weatherType={day.weatherType}/>
+                          weatherType={day.weatherType}
+                          delay={i}/>
                 );
             })}
         </div>

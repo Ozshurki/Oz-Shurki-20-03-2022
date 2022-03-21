@@ -1,42 +1,46 @@
 import React, {useState} from 'react';
 import {Link} from 'react-router-dom';
 import {CgMenu} from "react-icons/cg";
-import {GrFormClose} from "react-icons/gr";
-
+import {IoMdClose} from "react-icons/io";
+import {TiWeatherDownpour, TiWeatherPartlySunny} from "react-icons/ti";
+import useLocalStorage from "use-local-storage";
 
 import Navigation from "./navbar/navigation/Navigation";
 import MobileNavBar from "./navbar/mobile-navbar/MobileNavBar";
 import './Header.css';
+import {BsToggleOn} from "react-icons/bs";
 
 
-interface HeaderInt{
-    toggleTheme : () => void;
+interface HeaderInt {
+    toggleTheme: () => void;
 }
 
-const Header: React.FC<HeaderInt>= ({toggleTheme}) => {
+const Header: React.FC<HeaderInt> = ({toggleTheme}) => {
 
     const [open, setOpen] = useState<boolean>(false);
+    const [theme] = useLocalStorage<string>('theme' ? 'dark' : 'light', '');
 
 
     const toggleOpen = () => setOpen(!open);
     const closeMobileMenu = () => setOpen(false);
 
-    const hamburgerMenu = <CgMenu color="black"
+    const hamburgerMenu = <CgMenu color={theme ? "dark" : "white"}
                                   size="2rem"
                                   onClick={toggleOpen}/>;
-    const closeMenu = <GrFormClose color="black"
-                                   size="2rem"
-                                   onClick={toggleOpen}/>;
+    const closeMenu = <IoMdClose color={theme ? "dark" : "white"}
+                                 size="2rem"
+                                 onClick={toggleOpen}/>;
 
     return (
         <div className="header">
             <div className="logo">
-                <Link to="/">
-                    <img src="https://herolo.co.il/static/a052c8dff834594961997ad17e06cff2/53cab/abra-logo.webp" alt="abra"/>
-                </Link>
+                <TiWeatherPartlySunny color={theme ? "dark" : "white"} size="3rem"/>
             </div>
             <div className="navbar">
-                <button onClick={toggleTheme}>Toggle theme</button>
+                <BsToggleOn className="toggle-theme"
+                            color={theme ? "dark" : "white"}
+                            size="1.7rem"
+                            onClick={toggleTheme}/>
                 <Navigation/>
                 {open && <MobileNavBar closeMobileMenu={closeMobileMenu}/>}
             </div>

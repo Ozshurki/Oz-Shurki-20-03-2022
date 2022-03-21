@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {GrFavorite} from "react-icons/gr";
+import useLocalStorage from "use-local-storage";
 import {MdFavorite, MdFavoriteBorder} from "react-icons/md";
 import {RiCelsiusFill} from "react-icons/ri";
 
@@ -192,6 +192,7 @@ const HomeContent: React.FC = () => {
     const [cityName, setCityName] = useState<string>("Tel Aviv");
     const [temperature, setTemperature] = useState<number>(0);
     const [weatherType, setWeatherType] = useState<string>("");
+    const [theme] = useLocalStorage<string>('theme' ? 'dark' : 'light', '');
 
     const savedCities = useSelector((state: RootStateOrAny) => state.favorites.cities);
     const dispatch = useDispatch();
@@ -221,7 +222,7 @@ const HomeContent: React.FC = () => {
                         <div className="city-name">Tel-Aviv</div>
                         <div className="city-degree">25
                             <span>
-                                <RiCelsiusFill color="black" size="0.9rem"/>
+                                <RiCelsiusFill color={theme ? "dark" : "white"} size="0.9rem"/>
                             </span>
                         </div>
                     </div>
@@ -229,11 +230,11 @@ const HomeContent: React.FC = () => {
                 <div className="save-city-container">
                     {!savedCities.find((existItem: CityType) => existItem.cityName === cityName) ?
                         <>
-                            <MdFavoriteBorder color="black" size="1.9rem" onClick={saveCity}/>
+                            <MdFavoriteBorder color={theme ? "dark" : "white"} size="1.9rem" onClick={saveCity}/>
                             <div className="save-city-btn" onClick={saveCity}>Add to favorites</div>
                         </> :
                         <>
-                            <MdFavorite color="black" size="2.5rem" onClick={removeCity}/>
+                            <MdFavorite color={theme ? "dark" : "white"} size="2.5rem" onClick={removeCity}/>
                             <div className="delete-city-btn" onClick={removeCity}>Remove from favorites</div>
                         </>
                     }
@@ -251,7 +252,8 @@ const HomeContent: React.FC = () => {
                             <Card key={i}
                                   date={day.Date}
                                   temperature={day.Temperature.Minimum.Value}
-                                  weatherType={day.Day.IconPhrase}/>
+                                  weatherType={day.Day.IconPhrase}
+                                  delay={i}/>
                         );
                     })
                 }

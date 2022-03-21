@@ -1,8 +1,9 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
-import "./NavLinks.css";
 import {motion} from "framer-motion";
 import {RootStateOrAny, useSelector} from "react-redux";
+
+import "./NavLinks.css";
 
 interface Props {
     isMobile: boolean;

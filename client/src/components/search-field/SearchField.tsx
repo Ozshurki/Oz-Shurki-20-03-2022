@@ -5,7 +5,7 @@ import "./SearchField.css"
 
 const SearchField:React.FC = () => {
 
-    const [theme, setTheme] = useLocalStorage<string>('theme' ? 'dark' : 'light', '');
+    const [theme] = useLocalStorage<string>('theme' ? 'dark' : 'light', '');
 
     return(
         <div className="search-field">

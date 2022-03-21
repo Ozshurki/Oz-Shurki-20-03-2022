@@ -9,6 +9,8 @@
     justify-content: space-between;
     z-index: 1;
     background-color: var(--background);
+    border-bottom: 1px solid var(--border);
+    box-shadow: 0 0 7px var(--border);
 }
 
 .logo {
@@ -19,13 +21,20 @@
     margin-left: 20px;
 }
 
-.logo img{
-    max-width: 100%;
+.logo a{
+    color: black;
 }
+
 .navbar {
     width: 30%;
     display: flex;
     font-family: 'Poppins', sans-serif;
+}
+
+.toggle-theme{
+    margin: 0 auto;
+    margin-top: 25px;
+    cursor: pointer;
 }
 
 .cart {
@@ -65,6 +74,7 @@
 @media (max-width: 990px) {
     .header {
         height: 69px;
+        border-bottom: none;
     }
 }
 
