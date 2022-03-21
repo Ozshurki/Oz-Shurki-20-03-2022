@@ -8,17 +8,25 @@ interface CardInt {
     date: string,
     temperature: number,
     weatherType: string,
-    delay: number
+    animationDelay: number
 }
 
-const animateFrom = {opacity: 0, x: 40};
-const animateTo = {opacity: 1, x: 0};
-
-
-const Card: React.FC<CardInt> = ({date, temperature, weatherType, delay}) => {
+const Card: React.FC<CardInt> = ({date, temperature, weatherType, animationDelay}) => {
 
     const [imageType, setImageType] = useState<string>();
 
+    const cardVariants={
+        hidden:{
+            opacity: 0,
+            x: 40
+        },
+        visible:{opacity: 1,
+            x: 0,
+            transition:{delay: 0.8 + animationDelay * 0.2, type: "spring"}
+        }
+    }
+
+    //Extract the weather type for the background image
     const extractWeatherType = () => {
         const tempArr = weatherType.split(" ");
         let type = "";
@@ -29,16 +37,14 @@ const Card: React.FC<CardInt> = ({date, temperature, weatherType, delay}) => {
     };
 
     useEffect(() => {
-
-        //Extract the weather type for the background image
         extractWeatherType();
     }, []);
 
     return (
-        <motion.div className={classNames("card", "")}
-                    initial={animateFrom}
-                    animate={animateTo}
-                    transition={{delay: 0.8 + delay * 0.2, type: "spring"}}>
+        <motion.div className="card"
+                    variants={cardVariants}
+                    initial="hidden"
+                    animate="visible">
             <motion.div className={classNames("card-content",imageType?.toLowerCase())}
                         whileHover={{scale:1.1}}>
                 <div className="date">{new Date(date).toString().slice(0, 3)}</div>

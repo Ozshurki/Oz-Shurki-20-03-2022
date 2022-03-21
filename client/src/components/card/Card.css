@@ -27,10 +27,6 @@
     background-size: 100% 100%;
 }
 
-.cloudy:hover{
-    transform: scale(1.2);
-}
-
 .sunny{
     background: linear-gradient(0deg, #282c3400 5%,rgba(0,0,0,0)) ,url("https://thumbs.dreamstime.com/b/vacation-background-beach-palm-trees-blue-sea-vector-54094165.jpg");
     background-size: 100% 100%;

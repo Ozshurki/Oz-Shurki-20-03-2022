@@ -200,8 +200,6 @@ const HomeContent: React.FC = () => {
     useEffect(() => {
         setTemperature(fiveDaysForecast.DailyForecasts[0].Temperature.Minimum.Value);
         setWeatherType(fiveDaysForecast.DailyForecasts[0].Day.IconPhrase);
-
-
     }, []);
 
     const saveCity = () => {
@@ -230,12 +228,18 @@ const HomeContent: React.FC = () => {
                 <div className="save-city-container">
                     {!savedCities.find((existItem: CityType) => existItem.cityName === cityName) ?
                         <>
-                            <MdFavoriteBorder color={theme ? "dark" : "white"} size="1.9rem" onClick={saveCity}/>
-                            <div className="save-city-btn" onClick={saveCity}>Add to favorites</div>
+                            <MdFavoriteBorder color={theme ? "dark" : "white"}
+                                              size="1.9rem"
+                                              onClick={saveCity}/>
+                            <div className="save-city-btn"
+                                 onClick={saveCity}>Add to favorites</div>
                         </> :
                         <>
-                            <MdFavorite color={theme ? "dark" : "white"} size="2.5rem" onClick={removeCity}/>
-                            <div className="delete-city-btn" onClick={removeCity}>Remove from favorites</div>
+                            <MdFavorite color={theme ? "dark" : "white"}
+                                        size="2.5rem"
+                                        onClick={removeCity}/>
+                            <div className="delete-city-btn"
+                                 onClick={removeCity}>Remove from favorites</div>
                         </>
                     }
                 </div>
@@ -253,7 +257,7 @@ const HomeContent: React.FC = () => {
                                   date={day.Date}
                                   temperature={day.Temperature.Minimum.Value}
                                   weatherType={day.Day.IconPhrase}
-                                  delay={i}/>
+                                  animationDelay={i}/>
                         );
                     })
                 }

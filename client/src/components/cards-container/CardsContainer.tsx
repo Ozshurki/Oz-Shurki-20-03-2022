@@ -41,7 +41,7 @@ const CardsContainer: React.FC<CardsContainerInt> = (props) => {
                           date={day.date}
                           temperature={parseInt(String(day.temperature))}
                           weatherType={day.weatherType}
-                          delay={i}/>
+                          animationDelay={i}/>
                 );
             })}
         </div>
