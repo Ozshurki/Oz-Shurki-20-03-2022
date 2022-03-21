@@ -1,10 +1,11 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import {FaSearchLocation} from "react-icons/fa";
 import useLocalStorage from "use-local-storage";
-import {AutoCompleteComponent} from "@syncfusion/ej2-react-dropdowns";
+import axios from "axios";
 
 import "./SearchField.css";
-import {CityType} from "../../shared/types/city";
+import classNames from "classnames";
+
 
 type OptionType = {
     LocalizedName: string,
@@ -13,7 +14,10 @@ type OptionType = {
         LocalizedName: string
     },
 }
-const results = [
+
+const API_KEY = "38zL5JJBzB8fxXNTGy04i2HibhNw6E0i";
+
+const results1 = [
     {
         "Version": 1,
         "Key": "321626",
@@ -166,7 +170,7 @@ const results = [
     }
 ];
 
-const results1 = [
+const results2 = [
     {
         "Version": 1,
         "Key": "2333525",
@@ -196,145 +200,60 @@ const results1 = [
             "ID": "NY",
             "LocalizedName": "New York"
         }
-    },
-    {
-        "Version": 1,
-        "Key": "187745",
-        "Type": "City",
-        "Rank": 21,
-        "LocalizedName": "New Delhi",
-        "Country": {
-            "ID": "IN",
-            "LocalizedName": "India"
-        },
-        "AdministrativeArea": {
-            "ID": "DL",
-            "LocalizedName": "Delhi"
-        }
-    },
-    {
-        "Version": 1,
-        "Key": "2515397",
-        "Type": "City",
-        "Rank": 21,
-        "LocalizedName": "New Taipei City",
-        "Country": {
-            "ID": "TW",
-            "LocalizedName": "Taiwan"
-        },
-        "AdministrativeArea": {
-            "ID": "NWT",
-            "LocalizedName": "New Taipei City"
-        }
-    },
-    {
-        "Version": 1,
-        "Key": "298885",
-        "Type": "City",
-        "Rank": 32,
-        "LocalizedName": "Newcastle",
-        "Country": {
-            "ID": "ZA",
-            "LocalizedName": "South Africa"
-        },
-        "AdministrativeArea": {
-            "ID": "KZN",
-            "LocalizedName": "Kwazulu-Natal"
-        }
-    },
-    {
-        "Version": 1,
-        "Key": "12777",
-        "Type": "City",
-        "Rank": 35,
-        "LocalizedName": "Newcastle",
-        "Country": {
-            "ID": "AU",
-            "LocalizedName": "Australia"
-        },
-        "AdministrativeArea": {
-            "ID": "NSW",
-            "LocalizedName": "New South Wales"
-        }
-    },
-    {
-        "Version": 1,
-        "Key": "3588491",
-        "Type": "City",
-        "Rank": 35,
-        "LocalizedName": "New Cairo",
-        "Country": {
-            "ID": "EG",
-            "LocalizedName": "Egypt"
-        },
-        "AdministrativeArea": {
-            "ID": "C",
-            "LocalizedName": "Cairo"
-        }
-    },
-    {
-        "Version": 1,
-        "Key": "348585",
-        "Type": "City",
-        "Rank": 35,
-        "LocalizedName": "New Orleans",
-        "Country": {
-            "ID": "US",
-            "LocalizedName": "United States"
-        },
-        "AdministrativeArea": {
-            "ID": "LA",
-            "LocalizedName": "Louisiana"
-        }
-    },
-    {
-        "Version": 1,
-        "Key": "349530",
-        "Type": "City",
-        "Rank": 35,
-        "LocalizedName": "Newark",
-        "Country": {
-            "ID": "US",
-            "LocalizedName": "United States"
-        },
-        "AdministrativeArea": {
-            "ID": "NJ",
-            "LocalizedName": "New Jersey"
-        }
-    },
-    {
-        "Version": 1,
-        "Key": "329683",
-        "Type": "City",
-        "Rank": 41,
-        "LocalizedName": "Newcastle upon Tyne",
-        "Country": {
-            "ID": "GB",
-            "LocalizedName": "United Kingdom"
-        },
-        "AdministrativeArea": {
-            "ID": "NET",
-            "LocalizedName": "Newcastle upon Tyne"
-        }
     }
 ];
 
-const SearchField: React.FC = () => {
+interface SearchFieldInt {
+    setCity: (key:number, cityName:string, country:string) => void;
+}
+
+const SearchField: React.FC<SearchFieldInt> = ({setCity}) => {
 
     const [theme] = useLocalStorage<string>('theme' ? 'dark' : 'light', '');
+    const [results, setResults] = useState<any[]>([]);
+    const inputRef = useRef<HTMLInputElement>(null);
+
+
+    const getInputResults = async () => {
+
+        if (inputRef.current === null) return;
+        const inputText = inputRef.current?.value;
+
+        try {
+            //const response = await axios.get(`http://dataservice.accuweather.com/locations/v1/cities/autocomplete?apikey=${API_KEY}&q=${inputText}`);
+            //console.log(response.data);
+            setResults(results1);
+        } catch (err) {
+            console.log(err);
+        }
+    };
+
+    const getCityDetails = async (cityDetails: any) => {
+
+        if (inputRef.current === null) return;
+
+        inputRef.current.value = cityDetails.LocalizedName;
+        setResults([]);
+        setCity(cityDetails.Key, cityDetails.LocalizedName, cityDetails.Country.LocalizedName);
+    };
 
     return (
         <div className="search-field">
             <FaSearchLocation color={theme ? "dark" : "white"} size="1.5rem"/>
-            <input type="text" placeholder="Enter city..."/>
-            <div className="results">
-                {results.map(city =>{
-                    return(
-                        <div className="search-result">
-                            <div className="city-result">{city.LocalizedName}</div>
-                            <div className="county-result">{city.Country.LocalizedName}</div>
+            <input type="text"
+                   ref={inputRef}
+                   placeholder="Enter city..."
+                   onChange={getInputResults}/>
+            <div className={classNames("results-container", results.length > 0 && "results")}>
+                {results?.map((city: any) => {
+                    return (
+                        <div className="search-result"
+                             key={city?.Key}
+                             onClick={() => getCityDetails(city)}>
+                            <div className="city-result">{city?.LocalizedName}</div>
+                            <div className="county-result">{city?.Country.LocalizedName}</div>
                         </div>
-                    )
+                    );
                 })}
             </div>
         </div>
