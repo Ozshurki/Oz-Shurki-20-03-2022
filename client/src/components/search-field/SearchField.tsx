@@ -5,6 +5,8 @@ import axios from "axios";
 
 import "./SearchField.css";
 import classNames from "classnames";
+import Modal from "../modal/Modal";
+import Error from "../modal/error/Error";
 
 
 type OptionType = {
@@ -204,15 +206,17 @@ const results2 = [
 ];
 
 interface SearchFieldInt {
-    setCity: (key:number, cityName:string, country:string) => void;
+    setCity: (key: number, cityName: string, country: string) => void;
 }
 
 const SearchField: React.FC<SearchFieldInt> = ({setCity}) => {
 
     const [theme] = useLocalStorage<string>('theme' ? 'dark' : 'light', '');
     const [results, setResults] = useState<any[]>([]);
+    const [showModal, setShowModal] = useState<boolean>(true);
     const inputRef = useRef<HTMLInputElement>(null);
 
+    const toggleModal = () => setShowModal(!showModal);
 
     const getInputResults = async () => {
 
@@ -257,6 +261,11 @@ const SearchField: React.FC<SearchFieldInt> = ({setCity}) => {
                     );
                 })}
             </div>
+            {showModal &&
+            <Modal>
+                <Error toggleModal={toggleModal}/>
+            </Modal>
+            }
         </div>
     );
 };
