@@ -31,14 +31,14 @@ const favoritesSlice = createSlice({
                     countryName: newCity.countryName,
                     cityName: newCity.cityName,
                     temperature: newCity.temperature,
-                    weatherType: newCity.weatherType
+                    weatherType: newCity.weatherType,
+                    weatherIcon: newCity.weatherIcon
                 });
             state.citiesQuantity++;
         },
         deleteCity(state, action) {
             const wantedCity = action.payload;
             state.cities = state.cities.filter(city => city.key !== wantedCity.key);
-
             state.citiesQuantity--;
         },
         sort(state){

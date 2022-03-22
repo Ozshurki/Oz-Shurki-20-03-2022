@@ -11,14 +11,20 @@ interface FavoriteItemInt {
     cityName: string;
     temperature: number;
     weatherType: string;
+    weatherIcon:string
 }
 
-const FavoriteItem: React.FC<FavoriteItemInt> = ({keyLocation, cityName, temperature, weatherType}) => {
+const FavoriteItem: React.FC<FavoriteItemInt> = ({keyLocation, cityName, temperature, weatherType, weatherIcon}) => {
 
     const [theme] = useLocalStorage<string>('theme' ? 'dark' : 'light', '');
 
+    console.log(weatherIcon);
+
     return (
         <motion.div className="favorite-item-container">
+            <img className="weather-img"
+                 src={`https://developer.accuweather.com/sites/default/files/${weatherIcon}-s.png`}
+                 alt={weatherIcon}/>
             <Link to={`/weather/${keyLocation}`}>
                 <div className="favorite-item-content">
                     <div className="city-name">{cityName}</div>

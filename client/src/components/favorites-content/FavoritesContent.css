@@ -6,6 +6,15 @@
     border-radius: 5px;
 }
 
+.favorites-items-container{
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    grid-column-gap: 1rem;
+    justify-items: center;
+    padding: 0 20px;
+}
+
 .sort-btn{
     margin: 0 auto;
     color: var(--text-primary);
@@ -21,18 +30,6 @@
     transform: scale(1.1);
     transition: all 0.3s;
 }
-
-.favorites-items-container{
-    flex: 1 1;
-    width: 100%;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-    grid-column-gap: 1rem;
-    justify-items: center;
-    padding: 0 20px;
-}
-
-
 
 .favorites-is-empty-msg{
     max-width: 100%;

@@ -39,9 +39,11 @@ const CardsContainer: React.FC<CardsContainerInt> = (props) => {
                 return (
                     <DailyForeCast key={i}
                                    date={day.date}
-                                   temperature={parseInt(String(day.temperature))}
+                                   minTemperature={parseInt(String(day.temperature))}
+                                   maxTemperature={parseInt(String(day.temperature))}
                                    weatherType={day.weatherType}
-                                   animationDelay={i}/>
+                                   animationDelay={i}
+                                   weatherIcon={""}/>
                 );
             })}
         </div>

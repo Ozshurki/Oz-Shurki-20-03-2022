@@ -37,10 +37,13 @@ const Header: React.FC<HeaderInt> = ({toggleTheme}) => {
                 <TiWeatherPartlySunny color={theme ? "dark" : "white"} size="3rem"/>
             </div>
             <div className="navbar">
-                <BsToggleOn className="toggle-theme"
-                            color={theme ? "dark" : "white"}
-                            size="1.7rem"
-                            onClick={toggleTheme}/>
+                <div className="theme-toggle-container">
+                    Theme
+                    <BsToggleOn className="toggle-theme"
+                                color={theme ? "dark" : "white"}
+                                size="1.7rem"
+                                onClick={toggleTheme}/>
+                </div>
                 <Navigation/>
                 {open && <MobileNavBar closeMobileMenu={closeMobileMenu}/>}
             </div>

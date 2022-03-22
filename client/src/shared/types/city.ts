@@ -3,5 +3,6 @@ export type CityType = {
     cityName: string,
     countryName: string,
     temperature: number,
-    weatherType: string
+    weatherType: string,
+    weatherIcon: string
 }

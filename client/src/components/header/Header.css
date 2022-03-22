@@ -25,6 +25,14 @@
     color: black;
 }
 
+.theme-toggle-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    height: 100%;
+    font-size: 1.2rem;
+}
+
 .navbar {
     width: 30%;
     display: flex;
@@ -33,7 +41,6 @@
 
 .toggle-theme{
     margin: 0 auto;
-    margin-top: 25px;
     cursor: pointer;
 }
 

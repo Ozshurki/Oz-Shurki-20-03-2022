@@ -1,43 +1,44 @@
 .card{
+    display: flex;
+    flex-direction: column;
     width: 130px;
     height: 180px;
     margin: 10px 0 10px 0;
     border-radius: 10px;
+    box-shadow: 0 0 12px var(--border);
+}
+
+.card:hover img{
+    transform: scale(1.4);
+    transition: all 0.3s;
+}
+
+.weather-img{
+    max-width: 100%;
 }
 
 .card-content{
     position: relative;
+    padding-bottom: 5px;
     display: flex;
     flex-direction: column;
-    justify-content: space-evenly;
+    justify-content: flex-end;
     align-items: center;
     width: 100%;
     height: 100%;
-    border-radius: 10px;
-    box-shadow: 0 0 12px var(--border);
+    background:linear-gradient(to top,
+    #94C6DA,
+    rgba(197,49,76,0) 80%,
+    rgba(197,49,76,0));
+}
+
+.card-content div{
+    text-align: center;
 }
 
 .card div{
-    color: white;
-    font-size: 1.2rem;
-}
-
-.cloudy{
-    background: linear-gradient(0deg, #282c3400 5%,rgba(0,0,0,0)) ,url("https://images.unsplash.com/photo-1594156596782-656c93e4d504?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8Y2xvdWR5fGVufDB8fDB8fA%3D%3D&w=1000&q=80");
-    background-size: 100% 100%;
-}
-
-.sunny{
-    background: linear-gradient(0deg, #282c3400 5%,rgba(0,0,0,0)) ,url("https://thumbs.dreamstime.com/b/vacation-background-beach-palm-trees-blue-sea-vector-54094165.jpg");
-    background-size: 100% 100%;
-}
-
-.partly-sunny{
-    background: linear-gradient(0deg, #282c3400 5%,rgba(0,0,0,0)) ,url("https://www.wkbn.com/wp-content/uploads/sites/48/2021/03/clouds-cloudy-sky-spring-summer-fall-winter-weather-generic-8-1.jpg?w=1280");
-    background-size: 100% 100%;
-}
-
-.mostly-cloudy{
-    background: linear-gradient(0deg, #282c3400 5%,rgba(0,0,0,0)) ,url("https://s7d2.scene7.com/is/image/TWCNews/clouds_from_above");
-    background-size: 100% 100%;
+    color: var(--text-primary);
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 600;
 }

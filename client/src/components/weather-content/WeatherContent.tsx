@@ -10,6 +10,87 @@ import DailyForeCast from "../daily-forecast/DailyForeCast";
 import {favoritesActions} from "../../store/slices/favorites";
 import {CityType} from "../../shared/types/city";
 import axios from "axios";
+import {WiDegrees} from "react-icons/wi";
+import {BsToggleOn} from "react-icons/bs";
+import CurrentCityDetails from "../current-city-details/CurrentCityDetails";
+
+const currentConditions1 = [
+    {
+        "LocalObservationDateTime": "2022-03-22T13:11:00+01:00",
+        "EpochTime": 1647951060,
+        "WeatherText": "Partly sunny",
+        "WeatherIcon": 3,
+        "HasPrecipitation": false,
+        "PrecipitationType": null,
+        "IsDayTime": true,
+        "Temperature": {
+            "Metric": {
+                "Value": 33.3,
+                "Unit": "C",
+                "UnitType": 17
+            },
+            "Imperial": {
+                "Value": 92.0,
+                "Unit": "F",
+                "UnitType": 18
+            }
+        },
+        "MobileLink": "http://www.accuweather.com/en/ng/abuja/254085/current-weather/254085?lang=en-us",
+        "Link": "http://www.accuweather.com/en/ng/abuja/254085/current-weather/254085?lang=en-us"
+    }
+];
+
+const currentConditions2 = [
+    {
+        "LocalObservationDateTime": "2022-03-22T14:11:00+02:00",
+        "EpochTime": 1647951060,
+        "WeatherText": "Sunny",
+        "WeatherIcon": 1,
+        "HasPrecipitation": false,
+        "PrecipitationType": null,
+        "IsDayTime": true,
+        "Temperature": {
+            "Metric": {
+                "Value": 19.3,
+                "Unit": "C",
+                "UnitType": 17
+            },
+            "Imperial": {
+                "Value": 67.0,
+                "Unit": "F",
+                "UnitType": 18
+            }
+        },
+        "MobileLink": "http://www.accuweather.com/en/eg/abu-tig/127378/current-weather/127378?lang=en-us",
+        "Link": "http://www.accuweather.com/en/eg/abu-tig/127378/current-weather/127378?lang=en-us"
+    }
+];
+
+const currentConditions3 = [
+    {
+        "LocalObservationDateTime": "2022-03-22T13:11:00+01:00",
+        "EpochTime": 1647951060,
+        "WeatherText": "Partly sunny",
+        "WeatherIcon": 3,
+        "HasPrecipitation": false,
+        "PrecipitationType": null,
+        "IsDayTime": true,
+        "Temperature": {
+            "Metric": {
+                "Value": 33.3,
+                "Unit": "C",
+                "UnitType": 17
+            },
+            "Imperial": {
+                "Value": 92.0,
+                "Unit": "F",
+                "UnitType": 18
+            }
+        },
+        "MobileLink": "http://www.accuweather.com/en/ng/abuja/254085/current-weather/254085?lang=en-us",
+        "Link": "http://www.accuweather.com/en/ng/abuja/254085/current-weather/254085?lang=en-us"
+    }
+];
 
 
 const fiveDaysForecast = {
@@ -184,32 +265,60 @@ const fiveDaysForecast = {
 };
 
 interface Props {
-    locationKey:number;
-    city:string;
-    country:string;
+    locationKey: number;
+    city: string;
+    country: string;
 }
 
-const WeatherContent: React.FC<Props> = ({locationKey,city,country}) => {
+export type DegreeType = {
+    celsius: number,
+    fahrenheit: number
+}
 
-    const [currentTemperature, setCurrentTemperature] = useState<number>(0);
-    const [weatherCurrentType, setWeatherCurrentType] = useState<string>("");
+
+const WeatherContent: React.FC<Props> = ({locationKey, city, country}) => {
+
+    const [currentTemperature, setCurrentTemperature] = useState<DegreeType>();
+    const [currentWeatherType, setCurrentWeatherType] = useState<string>("");
+    const [currentWeatherIcon, setCurrentWeatherIcon] = useState<string>();
     const [isDayTime, setIsDayTime] = useState<boolean>(true);
     const [foreCasts, setForeCasts] = useState<any[]>([]);
+    const [isCelsius, setIsCelsius] = useState<boolean>(true);
 
     const savedCities = useSelector((state: RootStateOrAny) => state.favorites.cities);
     const [theme] = useLocalStorage<string>('theme' ? 'dark' : 'light', '');
     const dispatch = useDispatch();
 
 
+    const padNumber = (iconNumber: string | undefined): string => {
+
+        const stringNum = iconNumber + '';
+        const strLen = stringNum.length;
+
+        if (strLen === 1)
+            return '0' + stringNum;
+        else
+            return stringNum;
+
+    };
+
     useEffect(() => {
         const getCurrentConditions = async () => {
 
             try {
-                const response = await axios.get(`http://dataservice.accuweather.com/currentconditions/v1/${locationKey}?apikey=38zL5JJBzB8fxXNTGy04i2HibhNw6E0i`);
-                console.log(response);
-                setCurrentTemperature(response.data[0].Temperature.Metric.Value);
-                setWeatherCurrentType(response.data[0].WeatherText);
-                setIsDayTime(response.data[0].isDateTime);
+                //const response = await axios.get(`http://dataservice.accuweather.com/currentconditions/v1/${locationKey}?apikey=38zL5JJBzB8fxXNTGy04i2HibhNw6E0i`);
+                //console.log(response);
+
+                const temperature: DegreeType =
+                    {
+                        celsius: currentConditions2[0].Temperature.Metric.Value,
+                        fahrenheit: currentConditions2[0].Temperature.Imperial.Value
+                    };
+                setCurrentTemperature(temperature);
+                setCurrentWeatherType(currentConditions2[0].WeatherText);
+                setIsDayTime(currentConditions2[0].IsDayTime);
+                setCurrentWeatherIcon(currentConditions2[0].WeatherIcon.toString());
+
             } catch (err) {
                 console.log(err);
             }
@@ -225,7 +334,7 @@ const WeatherContent: React.FC<Props> = ({locationKey,city,country}) => {
             }
         };
 
-        //getCurrentConditions();
+        getCurrentConditions();
         getForeCast();
     }, [city]);
 
@@ -233,10 +342,11 @@ const WeatherContent: React.FC<Props> = ({locationKey,city,country}) => {
         key: locationKey,
         country: country,
         cityName: city,
-        temperature:locationKey%6,
-        weatherType:"Hot AF"
+        temperature: currentTemperature?.celsius,
+        weatherType: currentWeatherType,
+        weatherIcon: padNumber(currentWeatherIcon)
     }));
-    const removeCity = () => dispatch(favoritesActions.deleteCity({key:locationKey}));
+    const removeCity = () => dispatch(favoritesActions.deleteCity({key: locationKey}));
 
     const dayTimeImage = isDayTime ? "https://previews.123rf.com/images/webstocker/webstocker1707/webstocker170700016/82684366-skyline-della-citt%C3%A0-al-giorno-che-mostra-vettore-di-sole-e-nuvole.jpg"
         : "https://static.vecteezy.com/system/resources/thumbnails/002/042/713/small/city-night-illustration-vector.jpg";
@@ -244,18 +354,27 @@ const WeatherContent: React.FC<Props> = ({locationKey,city,country}) => {
     return (
         <div className="weather-content">
             <div className="row">
+                <CurrentCityDetails city={city} dayTimeImg={dayTimeImage} isCelsius={isCelsius} temperature={currentTemperature}/>
                 <div className="current-city">
                     <div className="current-city-time">
                         <img src={dayTimeImage} alt="day-time"/>
                     </div>
                     <div className="current-city-content">
                         <div className="city-name">{city}</div>
-                        <div className="city-degree">{locationKey%6}
+                        <div className="city-degree">{isCelsius ? currentTemperature?.celsius :
+                            currentTemperature?.fahrenheit}
                             <span>
-                                <RiCelsiusFill color={theme ? "dark" : "white"} size="0.9rem"/>
+                                <WiDegrees color={theme ? "dark" : "white"} size="1.5rem"/>
                             </span>
                         </div>
                     </div>
+                </div>
+                <div className="toggle-degree">
+                    <div>Toggle degree</div>
+                    <BsToggleOn className="toggle-degree-btn"
+                                color={theme ? "dark" : "white"}
+                                size="1.7rem"
+                                onClick={() => setIsCelsius(!isCelsius)}/>
                 </div>
                 <div className="save-city-container">
                     {!savedCities.find((existItem: CityType) => existItem.key === locationKey) ?
@@ -280,7 +399,7 @@ const WeatherContent: React.FC<Props> = ({locationKey,city,country}) => {
             </div>
             <div className="row">
                 <div className="clouds-type">
-                    {fiveDaysForecast.Headline.Text}
+                    {currentWeatherType}
                 </div>
             </div>
             <div className="row">
@@ -289,9 +408,11 @@ const WeatherContent: React.FC<Props> = ({locationKey,city,country}) => {
                         return (
                             <DailyForeCast key={i}
                                            date={day.Date}
-                                           temperature={day.Temperature.Minimum.Value}
+                                           minTemperature={day.Temperature.Minimum.Value}
+                                           maxTemperature={day.Temperature.Maximum.Value}
                                            weatherType={day.Day.IconPhrase}
-                                           animationDelay={i}/>
+                                           animationDelay={i}
+                                           weatherIcon={padNumber(day.Day.Icon)}/>
                         );
                     })
                 }
