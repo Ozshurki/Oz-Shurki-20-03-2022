@@ -5,11 +5,10 @@ import {RiCelsiusFill} from "react-icons/ri";
 import classNames from "classnames";
 import {RootStateOrAny, useDispatch, useSelector} from "react-redux";
 
-import "./HomeContent.css";
-import Card from "../card/Card";
+import "./WeatherContent.css";
+import DailyForeCast from "../daily-forecast/DailyForeCast";
 import {favoritesActions} from "../../store/slices/favorites";
 import {CityType} from "../../shared/types/city";
-import {CityDetails} from "../../shared/types/city-details";
 import axios from "axios";
 
 
@@ -182,15 +181,16 @@ const fiveDaysForecast = {
             "Link": "http://www.accuweather.com/en/fr/beaucaire/30301/daily-weather-forecast/152909_pc?day=5&lang=en-us"
         }
     ]
-}
+};
 
 interface Props {
-    cityDetails: CityDetails;
+    locationKey:number;
+    city:string;
+    country:string;
 }
 
-const HomeContent: React.FC<Props> = ({cityDetails}) => {
+const WeatherContent: React.FC<Props> = ({locationKey,city,country}) => {
 
-    const [cityName, setCityName] = useState<string>(cityDetails ? cityDetails.cityName : "Tel Aviv");
     const [currentTemperature, setCurrentTemperature] = useState<number>(0);
     const [weatherCurrentType, setWeatherCurrentType] = useState<string>("");
     const [isDayTime, setIsDayTime] = useState<boolean>(true);
@@ -201,53 +201,56 @@ const HomeContent: React.FC<Props> = ({cityDetails}) => {
     const dispatch = useDispatch();
 
 
-    const getCurrentConditions = async () => {
-
-        try {
-            const response = await axios.get(`http://dataservice.accuweather.com/currentconditions/v1/${cityDetails.key}?apikey=38zL5JJBzB8fxXNTGy04i2HibhNw6E0i`);
-            console.log(response);
-            console.log(cityDetails.cityName);
-            setCurrentTemperature(response.data[0].Temperature.Metric.Value);
-            setWeatherCurrentType(response.data[0].WeatherText);
-        } catch (err) {
-            console.log(err);
-        }
-    };
-
-    const getForeCast = async () => {
-        console.log(cityDetails.cityName, cityDetails.key);
-        try {
-            const response = await axios.get(`http://dataservice.accuweather.com/forecasts/v1/daily/5day/locationKey=152909_PC?apikey=38zL5JJBzB8fxXNTGy04i2HibhNw6E0i`);
-            console.log(response);
-            setForeCasts(response.data.DailyForecasts);
-        } catch (err) {
-            console.log(err);
-        }
-    };
-
     useEffect(() => {
+        const getCurrentConditions = async () => {
+
+            try {
+                const response = await axios.get(`http://dataservice.accuweather.com/currentconditions/v1/${locationKey}?apikey=38zL5JJBzB8fxXNTGy04i2HibhNw6E0i`);
+                console.log(response);
+                setCurrentTemperature(response.data[0].Temperature.Metric.Value);
+                setWeatherCurrentType(response.data[0].WeatherText);
+                setIsDayTime(response.data[0].isDateTime);
+            } catch (err) {
+                console.log(err);
+            }
+        };
+        const getForeCast = async () => {
+
+            try {
+                //const response = await axios.get(`http://dataservice.accuweather.com/forecasts/v1/daily/5day/locationKey=${locationKey}?apikey=38zL5JJBzB8fxXNTGy04i2HibhNw6E0i`);
+                //console.log(response);
+                setForeCasts(fiveDaysForecast.DailyForecasts);
+            } catch (err) {
+                console.log(err);
+            }
+        };
 
         //getCurrentConditions();
-        //getForeCast();
-        setForeCasts(fiveDaysForecast.DailyForecasts);
-    }, [cityDetails.key]);
+        getForeCast();
+    }, [city]);
 
-    const saveCity = () => dispatch(favoritesActions.addCity({cityName, currentTemperature, weatherCurrentType}));
-    const removeCity = () => dispatch(favoritesActions.deleteCity({cityName}));
+    const saveCity = () => dispatch(favoritesActions.addCity({
+        key: locationKey,
+        country: country,
+        cityName: city,
+        temperature:locationKey%6,
+        weatherType:"Hot AF"
+    }));
+    const removeCity = () => dispatch(favoritesActions.deleteCity({key:locationKey}));
 
     const dayTimeImage = isDayTime ? "https://previews.123rf.com/images/webstocker/webstocker1707/webstocker170700016/82684366-skyline-della-citt%C3%A0-al-giorno-che-mostra-vettore-di-sole-e-nuvole.jpg"
         : "https://static.vecteezy.com/system/resources/thumbnails/002/042/713/small/city-night-illustration-vector.jpg";
 
     return (
-        <div className="home-content">
+        <div className="weather-content">
             <div className="row">
                 <div className="current-city">
                     <div className="current-city-time">
                         <img src={dayTimeImage} alt="day-time"/>
                     </div>
                     <div className="current-city-content">
-                        <div className="city-name">Tel-Aviv</div>
-                        <div className="city-degree">25
+                        <div className="city-name">{city}</div>
+                        <div className="city-degree">{locationKey%6}
                             <span>
                                 <RiCelsiusFill color={theme ? "dark" : "white"} size="0.9rem"/>
                             </span>
@@ -255,7 +258,7 @@ const HomeContent: React.FC<Props> = ({cityDetails}) => {
                     </div>
                 </div>
                 <div className="save-city-container">
-                    {!savedCities.find((existItem: CityType) => existItem.cityName === cityName) ?
+                    {!savedCities.find((existItem: CityType) => existItem.key === locationKey) ?
                         <>
                             <MdFavoriteBorder color={theme ? "dark" : "white"}
                                               size="1.9rem"
@@ -284,11 +287,11 @@ const HomeContent: React.FC<Props> = ({cityDetails}) => {
                 {
                     foreCasts.map((day, i: number) => {
                         return (
-                            <Card key={i}
-                                  date={day.Date}
-                                  temperature={day.Temperature.Minimum.Value}
-                                  weatherType={day.Day.IconPhrase}
-                                  animationDelay={i}/>
+                            <DailyForeCast key={i}
+                                           date={day.Date}
+                                           temperature={day.Temperature.Minimum.Value}
+                                           weatherType={day.Day.IconPhrase}
+                                           animationDelay={i}/>
                         );
                     })
                 }
@@ -297,4 +300,4 @@ const HomeContent: React.FC<Props> = ({cityDetails}) => {
     );
 };
 
-export default HomeContent;
+export default WeatherContent;

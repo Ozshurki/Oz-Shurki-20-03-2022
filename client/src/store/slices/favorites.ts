@@ -27,6 +27,8 @@ const favoritesSlice = createSlice({
 
             state.cities.push(
                 {
+                    key: newCity.key,
+                    countryName: newCity.countryName,
                     cityName: newCity.cityName,
                     temperature: newCity.temperature,
                     weatherType: newCity.weatherType
@@ -35,10 +37,15 @@ const favoritesSlice = createSlice({
         },
         deleteCity(state, action) {
             const wantedCity = action.payload;
-            state.cities = state.cities.filter(city => city.cityName !== wantedCity.cityName);
+            state.cities = state.cities.filter(city => city.key !== wantedCity.key);
 
             state.citiesQuantity--;
         },
+        sort(state){
+            state.cities.sort((a:CityType,b:CityType):number => {
+                return (b.temperature - a.temperature);
+            })
+        }
     }
 });
 

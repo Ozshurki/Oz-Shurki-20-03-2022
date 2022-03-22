@@ -228,13 +228,13 @@ const SearchField: React.FC<SearchFieldInt> = ({setCity}) => {
         }
     };
 
-    const getCityDetails = async (cityDetails: any) => {
+    const handleClick = (cityDetails: any) => {
 
         if (inputRef.current === null) return;
 
         inputRef.current.value = cityDetails.LocalizedName;
-        setResults([]);
         setCity(cityDetails.Key, cityDetails.LocalizedName, cityDetails.Country.LocalizedName);
+        setResults([]);
     };
 
     return (
@@ -245,11 +245,12 @@ const SearchField: React.FC<SearchFieldInt> = ({setCity}) => {
                    placeholder="Enter city..."
                    onChange={getInputResults}/>
             <div className={classNames("results-container", results.length > 0 && "results")}>
-                {results?.map((city: any) => {
+                {results?.map(city => {
+
                     return (
                         <div className="search-result"
                              key={city?.Key}
-                             onClick={() => getCityDetails(city)}>
+                             onClick={() => handleClick(city)}>
                             <div className="city-result">{city?.LocalizedName}</div>
                             <div className="county-result">{city?.Country.LocalizedName}</div>
                         </div>

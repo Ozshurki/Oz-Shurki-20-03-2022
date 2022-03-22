@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import "./Card.css";
+import "./DailyForeCast.css";
 import {WiDegrees} from "react-icons/wi";
 import classNames from "classnames";
 import {motion} from "framer-motion";
@@ -11,7 +11,7 @@ interface CardInt {
     animationDelay: number
 }
 
-const Card: React.FC<CardInt> = ({date, temperature, weatherType, animationDelay}) => {
+const DailyForeCast: React.FC<CardInt> = ({date, temperature, weatherType, animationDelay}) => {
 
     const [imageType, setImageType] = useState<string>();
 
@@ -59,4 +59,4 @@ const Card: React.FC<CardInt> = ({date, temperature, weatherType, animationDelay
     );
 };
 
-export default Card;
+export default DailyForeCast;

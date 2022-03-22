@@ -1,7 +1,7 @@
 import React from "react";
 
 import "./CardsContainer.css";
-import Card from "../card/Card";
+import DailyForeCast from "../daily-forecast/DailyForeCast";
 
 const city = [
     {
@@ -37,11 +37,11 @@ const CardsContainer: React.FC<CardsContainerInt> = (props) => {
         <div className="cards-container">
             {props.foreCast.map((day, i: number) => {
                 return (
-                    <Card key={i}
-                          date={day.date}
-                          temperature={parseInt(String(day.temperature))}
-                          weatherType={day.weatherType}
-                          animationDelay={i}/>
+                    <DailyForeCast key={i}
+                                   date={day.date}
+                                   temperature={parseInt(String(day.temperature))}
+                                   weatherType={day.weatherType}
+                                   animationDelay={i}/>
                 );
             })}
         </div>
