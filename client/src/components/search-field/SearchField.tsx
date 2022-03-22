@@ -7,6 +7,7 @@ import "./SearchField.css";
 import classNames from "classnames";
 import Modal from "../modal/Modal";
 import Error from "../modal/error/Error";
+import {AiOutlineClose} from "react-icons/ai";
 
 
 type OptionType = {
@@ -218,9 +219,24 @@ const SearchField: React.FC<SearchFieldInt> = ({setCity}) => {
 
     const toggleModal = () => setShowModal(!showModal);
 
+    const clearText = () => {
+        if (inputRef.current === null) return;
+
+        inputRef.current.value = '';
+        setResults([]);
+    }
+
     const getInputResults = async () => {
 
         if (inputRef.current === null) return;
+
+        // Hide results if user delete
+        if(inputRef.current.value === ''){
+            setResults([]);
+            return;
+        }
+
+
         const inputText = inputRef.current?.value;
 
         try {
@@ -248,6 +264,10 @@ const SearchField: React.FC<SearchFieldInt> = ({setCity}) => {
                    ref={inputRef}
                    placeholder="Enter city..."
                    onChange={getInputResults}/>
+            <AiOutlineClose color="black"
+                            size="1.5rem"
+                            className="clear-text"
+                            onClick={clearText}/>
             <div className={classNames("results-container", results.length > 0 && "results")}>
                 {results?.map(city => {
 
