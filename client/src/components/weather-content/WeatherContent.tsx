@@ -1,18 +1,9 @@
 import React, {useEffect, useState} from "react";
-import useLocalStorage from "use-local-storage";
-import {MdFavorite, MdFavoriteBorder} from "react-icons/md";
-import {RiCelsiusFill} from "react-icons/ri";
-import classNames from "classnames";
-import {RootStateOrAny, useDispatch, useSelector} from "react-redux";
 
 import "./WeatherContent.css";
-import DailyForeCast from "../daily-forecast/DailyForeCast";
-import {favoritesActions} from "../../store/slices/favorites";
-import {CityType} from "../../shared/types/city";
-import axios from "axios";
-import {WiDegrees} from "react-icons/wi";
-import {BsToggleOn} from "react-icons/bs";
 import CurrentCityDetails from "../current-city-details/CurrentCityDetails";
+import ForeCastContainer from "../forecasts-container/ForeCastContainer";
+import {DegreeType} from "../../shared/types/degree";
 
 const currentConditions1 = [
     {
@@ -264,15 +255,13 @@ const fiveDaysForecast = {
     ]
 };
 
+
+
+
 interface Props {
     locationKey: number;
     city: string;
     country: string;
-}
-
-export type DegreeType = {
-    celsius: number,
-    fahrenheit: number
 }
 
 
@@ -285,22 +274,8 @@ const WeatherContent: React.FC<Props> = ({locationKey, city, country}) => {
     const [foreCasts, setForeCasts] = useState<any[]>([]);
     const [isCelsius, setIsCelsius] = useState<boolean>(true);
 
-    const savedCities = useSelector((state: RootStateOrAny) => state.favorites.cities);
-    const [theme] = useLocalStorage<string>('theme' ? 'dark' : 'light', '');
-    const dispatch = useDispatch();
+    const handleCelsius = () => setIsCelsius(!isCelsius);
 
-
-    const padNumber = (iconNumber: string | undefined): string => {
-
-        const stringNum = iconNumber + '';
-        const strLen = stringNum.length;
-
-        if (strLen === 1)
-            return '0' + stringNum;
-        else
-            return stringNum;
-
-    };
 
     useEffect(() => {
         const getCurrentConditions = async () => {
@@ -338,15 +313,7 @@ const WeatherContent: React.FC<Props> = ({locationKey, city, country}) => {
         getForeCast();
     }, [city]);
 
-    const saveCity = () => dispatch(favoritesActions.addCity({
-        key: locationKey,
-        country: country,
-        cityName: city,
-        temperature: currentTemperature?.celsius,
-        weatherType: currentWeatherType,
-        weatherIcon: padNumber(currentWeatherIcon)
-    }));
-    const removeCity = () => dispatch(favoritesActions.deleteCity({key: locationKey}));
+
 
     const dayTimeImage = isDayTime ? "https://previews.123rf.com/images/webstocker/webstocker1707/webstocker170700016/82684366-skyline-della-citt%C3%A0-al-giorno-che-mostra-vettore-di-sole-e-nuvole.jpg"
         : "https://static.vecteezy.com/system/resources/thumbnails/002/042/713/small/city-night-illustration-vector.jpg";
@@ -354,48 +321,15 @@ const WeatherContent: React.FC<Props> = ({locationKey, city, country}) => {
     return (
         <div className="weather-content">
             <div className="row">
-                <CurrentCityDetails city={city} dayTimeImg={dayTimeImage} isCelsius={isCelsius} temperature={currentTemperature}/>
-                <div className="current-city">
-                    <div className="current-city-time">
-                        <img src={dayTimeImage} alt="day-time"/>
-                    </div>
-                    <div className="current-city-content">
-                        <div className="city-name">{city}</div>
-                        <div className="city-degree">{isCelsius ? currentTemperature?.celsius :
-                            currentTemperature?.fahrenheit}
-                            <span>
-                                <WiDegrees color={theme ? "dark" : "white"} size="1.5rem"/>
-                            </span>
-                        </div>
-                    </div>
-                </div>
-                <div className="toggle-degree">
-                    <div>Toggle degree</div>
-                    <BsToggleOn className="toggle-degree-btn"
-                                color={theme ? "dark" : "white"}
-                                size="1.7rem"
-                                onClick={() => setIsCelsius(!isCelsius)}/>
-                </div>
-                <div className="save-city-container">
-                    {!savedCities.find((existItem: CityType) => existItem.key === locationKey) ?
-                        <>
-                            <MdFavoriteBorder color={theme ? "dark" : "white"}
-                                              size="1.9rem"
-                                              onClick={saveCity}/>
-                            <div className="save-city-btn"
-                                 onClick={saveCity}>Add to favorites
-                            </div>
-                        </> :
-                        <>
-                            <MdFavorite color={theme ? "dark" : "white"}
-                                        size="2.5rem"
-                                        onClick={removeCity}/>
-                            <div className="delete-city-btn"
-                                 onClick={removeCity}>Remove from favorites
-                            </div>
-                        </>
-                    }
-                </div>
+                <CurrentCityDetails city={city}
+                                    country={country}
+                                    dayTimeImg={dayTimeImage}
+                                    isCelsius={isCelsius}
+                                    temperature={currentTemperature}
+                                    toggleCelsius={handleCelsius}
+                                    locationKey={locationKey}
+                                    weatherIcon={currentWeatherIcon}
+                                    weatherType={currentWeatherType}/>
             </div>
             <div className="row">
                 <div className="clouds-type">
@@ -403,19 +337,7 @@ const WeatherContent: React.FC<Props> = ({locationKey, city, country}) => {
                 </div>
             </div>
             <div className="row">
-                {
-                    foreCasts.map((day, i: number) => {
-                        return (
-                            <DailyForeCast key={i}
-                                           date={day.Date}
-                                           minTemperature={day.Temperature.Minimum.Value}
-                                           maxTemperature={day.Temperature.Maximum.Value}
-                                           weatherType={day.Day.IconPhrase}
-                                           animationDelay={i}
-                                           weatherIcon={padNumber(day.Day.Icon)}/>
-                        );
-                    })
-                }
+                <ForeCastContainer foreCasts={foreCasts}/>
             </div>
         </div>
     );

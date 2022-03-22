@@ -1,0 +1,16 @@
+.save-city-container {
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    width: 150px;
+    margin: 0 10px;
+    font-family: 'Poppins', sans-serif;
+}
+
+.save-city-container svg, .save-city-container div {
+    cursor: pointer;
+}
+
+.save-city-btn, .delete-city-btn {
+    margin-left: 15px;
+}

@@ -18,10 +18,6 @@
     padding: 10px 0;
 }
 
-.current-city, .save-city-container {
-    font-family: 'Poppins', sans-serif;
-}
-
 .row:nth-of-type(1) {
     display: flex;
     position: relative;
@@ -37,73 +33,6 @@
     justify-items: center;
 }
 
-.current-city {
-    position: relative;
-    display: flex;
-    justify-content: space-around;
-    width: 300px;
-    margin: 0 10px;
-    height: 150px;
-}
-
-.toggle-degree {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: auto;
-    height: auto;
-    font-family: 'Poppins', sans-serif;
-}
-
-.toggle-degree-btn {
-    cursor: pointer;
-}
-
-.current-city-time {
-    width: 50%;
-    display: flex;
-    flex-direction: column;
-    align-items: start;
-    margin-left: 5px;
-    border-radius: 10px;
-    box-shadow: 0 0 12px var(--border);
-}
-
-.current-city-time img {
-    max-width: 100%;
-    height: 100%;
-    border-radius: 10px;
-}
-
-.city-content div {
-    height: 50%;
-    display: flex;
-    align-items: center;
-}
-
-.current-city-content {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-}
-
-.save-city-container {
-    display: flex;
-    justify-content: end;
-    align-items: center;
-    width: 150px;
-    margin: 0 10px;
-}
-
-.save-city-container svg, .save-city-container div {
-    cursor: pointer;
-}
-
-.save-city-btn, .delete-city-btn {
-    margin-left: 15px;
-}
-
 .clouds-type {
     text-align: center;
     margin: 0 auto;
@@ -111,12 +40,13 @@
     font-size: 2rem;
 }
 
-@media (max-width: 400px) {
+@media (max-width: 430px) {
+
     .row {
         flex-direction: column;
     }
 
-    .current-city {
-        margin-bottom: 10px;
+    .row:nth-of-type(1) div{
+        margin-bottom: 15px;
     }
 }
