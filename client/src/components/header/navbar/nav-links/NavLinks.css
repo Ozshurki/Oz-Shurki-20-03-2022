@@ -47,6 +47,15 @@
         margin-bottom: 20px;
     }
 
+    .link{
+        color: var(--border);
+        font-weight: 600;
+    }
+
+    .link::after{
+        background-color: var(--border);
+    }
+
     .link-container {
         width: 100%;
         text-align: start;

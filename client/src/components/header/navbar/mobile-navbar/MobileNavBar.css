@@ -4,7 +4,7 @@
     top: 69px;
     right: 0;
     width: 100%;
-    background-color: var(--background);
+    background: rgba(255,255,255,.2);
     opacity: 0.9;
 }
 

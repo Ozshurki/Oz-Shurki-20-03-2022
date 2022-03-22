@@ -3,6 +3,7 @@ import "./DailyForeCast.css";
 import {WiDegrees} from "react-icons/wi";
 import classNames from "classnames";
 import {motion} from "framer-motion";
+import useLocalStorage from "use-local-storage";
 
 interface CardInt {
     date: string,
@@ -15,6 +16,7 @@ interface CardInt {
 
 const DailyForeCast: React.FC<CardInt> = (props) => {
 
+    const [theme] = useLocalStorage<string>('theme' ? 'dark' : 'light', '');
 
     const cardVariants = {
         hidden: {
@@ -41,7 +43,7 @@ const DailyForeCast: React.FC<CardInt> = (props) => {
                 <div className="date">{new Date(props.date).toString().slice(0, 3)}</div>
                 <div className="temperature">{props.minTemperature} / {props.maxTemperature}
                     <span>
-                    <WiDegrees color="black" size="1.5rem"/>
+                    <WiDegrees color={theme ? "dark" : "white"} size="1.5rem"/>
                 </span>
                 </div>
                 <div className="weather-type">{props.weatherType}</div>
