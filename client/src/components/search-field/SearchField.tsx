@@ -213,7 +213,7 @@ const SearchField: React.FC<SearchFieldInt> = ({setCity}) => {
 
     const [theme] = useLocalStorage<string>('theme' ? 'dark' : 'light', '');
     const [results, setResults] = useState<any[]>([]);
-    const [showModal, setShowModal] = useState<boolean>(true);
+    const [showModal, setShowModal] = useState<boolean>(false);
     const inputRef = useRef<HTMLInputElement>(null);
 
     const toggleModal = () => setShowModal(!showModal);
