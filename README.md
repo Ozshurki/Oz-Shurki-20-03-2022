@@ -15,7 +15,7 @@ Favorite city were saved with redux.
 
 Error is shown with modal.
 
-I used AccuWeather API to get the data.
+I used AccuWeather API to get the weather data.
 
 The user can toggle the degree type between celsius and fahrenheit
 
