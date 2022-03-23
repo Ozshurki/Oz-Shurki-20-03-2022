@@ -24,8 +24,8 @@ The user can toggle the theme between Light theme and Dark theme
 
     My details:
 
-                        Oz Shurki
+                Oz Shurki
 
-                        shurki.oz@gmail.com
+                shurki.oz@gmail.com
 
-                        0545416161
+                0545416161
