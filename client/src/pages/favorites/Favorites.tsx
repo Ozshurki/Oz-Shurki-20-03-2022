@@ -1,7 +1,9 @@
 import React from "react";
+import { motion } from "framer-motion";
+
 import "./Favorites.css";
 import FavoriteCities from "../../components/favorites-content/FavoriteCities";
-import { motion } from "framer-motion";
+
 
 const favoritesVariants = {
     hidden: {

@@ -1,7 +1,7 @@
 import React, {useState} from "react";
+import classNames from "classnames";
 
 import "./MobileNavBar.css";
-import classNames from "classnames";
 import NavLinks from "../nav-links/NavLinks";
 
 interface Props {

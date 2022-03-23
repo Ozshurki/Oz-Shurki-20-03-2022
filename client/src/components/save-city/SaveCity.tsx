@@ -1,10 +1,11 @@
 import React from "react";
 import "./SaveCity.css"
-import {CityType} from "../../shared/types/city";
 import {MdFavorite, MdFavoriteBorder} from "react-icons/md";
 import useLocalStorage from "use-local-storage";
-import {favoritesActions} from "../../store/slices/favorites";
 import {RootStateOrAny, useDispatch, useSelector} from "react-redux";
+
+import {CityType} from "../../shared/types/city";
+import {favoritesActions} from "../../store/slices/favorites";
 import {padNumber} from "../../utils/functions/pad-number";
 import {DegreeType} from "../../shared/types/degree";
 

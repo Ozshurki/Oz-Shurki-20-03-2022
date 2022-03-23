@@ -1,11 +1,11 @@
 import React, {useCallback, useEffect, useState} from "react";
+import {useDispatch} from "react-redux";
 
 import "./WeatherContent.css";
 import CurrentCityDetails from "../current-city-details/CurrentCityDetails";
 import ForeCastContainer from "../forecasts-container/ForeCastContainer";
 import {DegreeType} from "../../shared/types/degree";
 import {getCurrentConditionsResults, getForeCastResults} from "../../apis/ApiServices";
-import {useDispatch} from "react-redux";
 import {modalActions} from "../../store/slices/modal";
 
 interface Props {

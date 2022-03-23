@@ -1,9 +1,10 @@
 import React from "react";
-import "./FavoriteCity.css";
-import {WiDegrees} from "react-icons/wi";
-import useLocalStorage from "use-local-storage";
 import {Link} from "react-router-dom";
 import {motion} from "framer-motion";
+import {WiDegrees} from "react-icons/wi";
+import useLocalStorage from "use-local-storage";
+
+import "./FavoriteCity.css";
 
 
 interface FavoriteItemInt {

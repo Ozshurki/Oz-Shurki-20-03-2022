@@ -6,9 +6,7 @@ import {RootStateOrAny, useSelector} from "react-redux";
 import "./CityWeather.css";
 import SearchField from "../../components/search-field/SearchField";
 import WeatherContent from "../../components/weather-content/WeatherContent";
-
 import {homeVariants} from "../weather/Weather";
-
 import {CityType} from "../../shared/types/city";
 
 

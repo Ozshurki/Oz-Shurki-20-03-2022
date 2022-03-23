@@ -23,11 +23,16 @@
     margin-top: 20px;
     padding: 5px;
     cursor: pointer;
+    background: rgba(255,255,255,.4);
+    color: var(--text-primary);
+    font-family: 'Poppins', sans-serif;
 }
 
 .sort-btn:hover{
     transform: scale(1.1);
     transition: all 0.3s;
+    background-color: white;
+    background: rgba(255,255,255,.7);
 }
 
 .favorites-is-empty-msg{

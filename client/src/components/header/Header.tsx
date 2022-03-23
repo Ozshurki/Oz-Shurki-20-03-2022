@@ -1,8 +1,7 @@
 import React, {useState} from 'react';
-import {Link} from 'react-router-dom';
 import {CgMenu} from "react-icons/cg";
 import {IoMdClose} from "react-icons/io";
-import {TiWeatherDownpour, TiWeatherPartlySunny} from "react-icons/ti";
+import {TiWeatherPartlySunny} from "react-icons/ti";
 import useLocalStorage from "use-local-storage";
 
 import Navigation from "./navbar/navigation/Navigation";
@@ -30,7 +29,6 @@ const Header: React.FC<HeaderInt> = ({toggleTheme}) => {
     const closeMenu = <IoMdClose color={theme ? "dark" : "white"}
                                  size="2rem"
                                  onClick={toggleOpen}/>;
-//toggle-theme
     return (
         <div className="header">
             <div className="logo">

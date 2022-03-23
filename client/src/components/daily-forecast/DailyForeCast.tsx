@@ -1,7 +1,6 @@
-import React, {useEffect, useState} from "react";
+import React from "react";
 import "./DailyForeCast.css";
 import {WiDegrees} from "react-icons/wi";
-import classNames from "classnames";
 import {motion} from "framer-motion";
 import useLocalStorage from "use-local-storage";
 

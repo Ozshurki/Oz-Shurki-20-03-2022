@@ -37,7 +37,7 @@
     height: 100%;
     font-family: 'Poppins', sans-serif;
     font-size: 1.1rem;
-    color: var(--text-primary);
+    color: white;
 }
 
 .favorite-item-container a{
