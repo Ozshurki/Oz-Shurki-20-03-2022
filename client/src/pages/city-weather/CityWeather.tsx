@@ -1,18 +1,20 @@
 import React, {useEffect, useState} from "react";
-import "./CityWeather.css"
 import {useParams} from "react-router-dom";
+import {motion} from "framer-motion";
+import {RootStateOrAny, useSelector} from "react-redux";
+
+import "./CityWeather.css";
 import SearchField from "../../components/search-field/SearchField";
 import WeatherContent from "../../components/weather-content/WeatherContent";
-import {motion} from "framer-motion";
-import {CityDetails} from "../../shared/types/city-details";
+
 import {homeVariants} from "../weather/Weather";
-import {RootStateOrAny, useSelector} from "react-redux";
+
 import {CityType} from "../../shared/types/city";
 
 
-const CityWeather:React.FC = () => {
+const CityWeather: React.FC = () => {
 
-    const {id} = useParams<{id:string}>();
+    const {id} = useParams<{ id: string }>();
     const [locationKey, setLocationKey] = useState<number>(215854);
     const [city, setCityName] = useState<string>('Tel Aviv');
     const [country, setCountry] = useState<string>('Israel');
@@ -26,15 +28,15 @@ const CityWeather:React.FC = () => {
     };
 
     useEffect(() => {
-        savedCities.forEach((city:CityType) => {
-            if(city.key.toString() === id){
+        savedCities.forEach((city: CityType) => {
+            if (city.key.toString() === id) {
                 setCity(city.key, city.cityName, city.countryName);
                 return;
             }
-        })
-    },[id])
+        });
+    }, [id]);
 
-    return(
+    return (
         <motion.div className="weather-page"
                     variants={homeVariants}
                     initial="hidden"
@@ -45,7 +47,7 @@ const CityWeather:React.FC = () => {
                             city={city}
                             country={country}/>
         </motion.div>
-    )
-}
+    );
+};
 
 export default CityWeather;

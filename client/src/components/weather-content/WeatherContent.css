@@ -39,6 +39,7 @@
     margin: 0 auto;
     font-family: 'Poppins', sans-serif;
     font-size: 2rem;
+    font-weight: 700;
 }
 
 @media (max-width: 430px) {

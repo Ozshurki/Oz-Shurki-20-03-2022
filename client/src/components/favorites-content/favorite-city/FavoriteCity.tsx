@@ -1,5 +1,5 @@
 import React from "react";
-import "./FavoriteItem.css";
+import "./FavoriteCity.css";
 import {WiDegrees} from "react-icons/wi";
 import useLocalStorage from "use-local-storage";
 import {Link} from "react-router-dom";
@@ -14,14 +14,12 @@ interface FavoriteItemInt {
     weatherIcon:string
 }
 
-const FavoriteItem: React.FC<FavoriteItemInt> = ({keyLocation, cityName, temperature, weatherType, weatherIcon}) => {
+const FavoriteCity: React.FC<FavoriteItemInt> = ({keyLocation, cityName, temperature, weatherType, weatherIcon}) => {
 
     const [theme] = useLocalStorage<string>('theme' ? 'dark' : 'light', '');
 
-    console.log(weatherIcon);
-
     return (
-        <motion.div className="favorite-item-container">
+        <motion.div className="favorite-item-container" layout>
             <img className="weather-img"
                  src={`https://developer.accuweather.com/sites/default/files/${weatherIcon}-s.png`}
                  alt={weatherIcon}/>
@@ -39,4 +37,4 @@ const FavoriteItem: React.FC<FavoriteItemInt> = ({keyLocation, cityName, tempera
     );
 };
 
-export default FavoriteItem;
+export default FavoriteCity;

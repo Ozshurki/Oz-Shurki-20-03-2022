@@ -7,6 +7,7 @@
     width: 300px;
     margin: 0 10px;
     height: 150px;
+    font-weight: 700;
 
 }
 
@@ -46,6 +47,17 @@
     width: auto;
     height: auto;
     font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+}
+
+.toggle-degree div:nth-of-type(2){
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.toggle-degree div:nth-of-type(2) svg{
+    margin: 0 5px;
 }
 
 .toggle-degree-btn {

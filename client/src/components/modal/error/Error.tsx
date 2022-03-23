@@ -4,6 +4,8 @@ import {GrFormClose} from "react-icons/gr";
 import {BiCommentError} from "react-icons/bi";
 
 import "./Error.css"
+import {useDispatch} from "react-redux";
+import {modalActions} from "../../../store/slices/modal";
 
 
 const backDropVariants = {
@@ -28,17 +30,10 @@ const modalVariants = {
     }
 };
 
-const btnHoverEffect = {
-    scale: 1.05,
-    color: "white",
-    boxShadow: "0px 0px 5px",
-};
 
-interface Props {
-    toggleModal: () => void;
-}
+const Error: React.FC= () => {
 
-const Error: React.FC<Props>= ({toggleModal}) => {
+    const dispatch = useDispatch();
 
     return (
         <AnimatePresence exitBeforeEnter>
@@ -51,7 +46,7 @@ const Error: React.FC<Props>= ({toggleModal}) => {
                     <div className="modal-header">
                         <BiCommentError color="black" size="1.5rem"/>
                         <div className="modal-close-btn">
-                            <GrFormClose onClick={toggleModal}
+                            <GrFormClose onClick={() => dispatch(modalActions.toggleModal())}
                                          color="black"
                                          size="1.8rem"/>
                         </div>

@@ -1,6 +1,6 @@
 import React from "react";
 import "./Favorites.css";
-import FavoritesContent from "../../components/favorites-content/FavoritesContent";
+import FavoriteCities from "../../components/favorites-content/FavoriteCities";
 import { motion } from "framer-motion";
 
 const favoritesVariants = {
@@ -29,7 +29,7 @@ const Favorites: React.FC = () => {
         initial="hidden"
         animate="visible"
         exit="exit">
-            <FavoritesContent/>
+            <FavoriteCities/>
         </motion.div>
     );
 };

@@ -1,6 +1,6 @@
 import React from "react";
 import {WiDegrees} from "react-icons/wi";
-import {BsToggleOn} from "react-icons/bs";
+import {BsToggleOff, BsToggleOn} from "react-icons/bs";
 import useLocalStorage from "use-local-storage";
 
 import "./CurrentCityDetails.css";
@@ -42,10 +42,20 @@ const CurrentCityDetails: React.FC<Props> = (props) => {
             </div>
             <div className="toggle-degree">
                 <div>Toggle degree</div>
-                <BsToggleOn className="toggle-degree-btn"
-                            color={theme ? "dark" : "white"}
-                            size="1.7rem"
-                            onClick={props.toggleCelsius}/>
+                <div>
+                    <span>C</span>
+                    {props.isCelsius ? <BsToggleOff className="toggle-degree-btn"
+                                                   color={theme ? "dark" : "white"}
+                                                   size="1.7rem"
+                                                   onClick={props.toggleCelsius}/> :
+                        <BsToggleOn className="toggle-degree-btn"
+                                    color={theme ? "dark" : "white"}
+                                    size="1.7rem"
+                                    onClick={props.toggleCelsius}/>
+                    }
+                    <span>F</span>
+                </div>
+
             </div>
             <SaveCity locationKey={props.locationKey}
                       city={props.city}

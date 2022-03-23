@@ -5,6 +5,7 @@
     width: 150px;
     margin: 0 10px;
     font-family: 'Poppins', sans-serif;
+    font-weight: 700;
 }
 
 .save-city-container svg, .save-city-container div {

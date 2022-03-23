@@ -1,13 +1,17 @@
 import React, {useEffect, useRef, useState} from "react";
 import {FaSearchLocation} from "react-icons/fa";
 import useLocalStorage from "use-local-storage";
+import {AiOutlineClose} from "react-icons/ai";
+import classNames from "classnames";
 import axios from "axios";
 
 import "./SearchField.css";
-import classNames from "classnames";
-import Modal from "../modal/Modal";
-import Error from "../modal/error/Error";
-import {AiOutlineClose} from "react-icons/ai";
+import {API_KEY} from "../../utils/api_key";
+import {getAutoCompleteResults} from "../../apis/ApiServices";
+import {useDispatch} from "react-redux";
+import {modalActions} from "../../store/slices/modal";
+
+
 
 
 type OptionType = {
@@ -18,7 +22,6 @@ type OptionType = {
     },
 }
 
-const API_KEY = "38zL5JJBzB8fxXNTGy04i2HibhNw6E0i";
 
 const results1 = [
     {
@@ -214,10 +217,9 @@ const SearchField: React.FC<SearchFieldInt> = ({setCity}) => {
 
     const [theme] = useLocalStorage<string>('theme' ? 'dark' : 'light', '');
     const [results, setResults] = useState<any[]>([]);
-    const [showModal, setShowModal] = useState<boolean>(false);
     const inputRef = useRef<HTMLInputElement>(null);
+    const dispatch = useDispatch();
 
-    const toggleModal = () => setShowModal(!showModal);
 
     const clearText = () => {
         if (inputRef.current === null) return;
@@ -240,11 +242,10 @@ const SearchField: React.FC<SearchFieldInt> = ({setCity}) => {
         const inputText = inputRef.current?.value;
 
         try {
-            //const response = await axios.get(`http://dataservice.accuweather.com/locations/v1/cities/autocomplete?apikey=${API_KEY}&q=${inputText}`);
-            //console.log(response.data);
-            setResults(results1);
+            const results = await getAutoCompleteResults(inputText);
+            setResults(results);
         } catch (err) {
-            console.log(err);
+            dispatch(modalActions.toggleModal());
         }
     };
 
@@ -281,11 +282,6 @@ const SearchField: React.FC<SearchFieldInt> = ({setCity}) => {
                     );
                 })}
             </div>
-            {showModal &&
-            <Modal>
-                <Error toggleModal={toggleModal}/>
-            </Modal>
-            }
         </div>
     );
 };
