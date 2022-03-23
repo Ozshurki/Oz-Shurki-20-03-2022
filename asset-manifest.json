@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/Oz-Shurki-20-03-2022/static/css/main.710e30ad.css",
+    "main.js": "/Oz-Shurki-20-03-2022/static/js/main.92bb276b.js",
+    "static/js/787.c4e7f8f9.chunk.js": "/Oz-Shurki-20-03-2022/static/js/787.c4e7f8f9.chunk.js",
+    "index.html": "/Oz-Shurki-20-03-2022/index.html",
+    "main.710e30ad.css.map": "/Oz-Shurki-20-03-2022/static/css/main.710e30ad.css.map",
+    "main.92bb276b.js.map": "/Oz-Shurki-20-03-2022/static/js/main.92bb276b.js.map",
+    "787.c4e7f8f9.chunk.js.map": "/Oz-Shurki-20-03-2022/static/js/787.c4e7f8f9.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.710e30ad.css",
+    "static/js/main.92bb276b.js"
+  ]
+}
