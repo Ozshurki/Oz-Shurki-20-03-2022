@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_KEY = "1Ac1JGNEvzay14pemOzG393Ydcc9nIqP";
+const API_KEY = "38zL5JJBzB8fxXNTGy04i2HibhNw6E0i";
 
 
 export const getAutoCompleteResults = async (input: string) => {
