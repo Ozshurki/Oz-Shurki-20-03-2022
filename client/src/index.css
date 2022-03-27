@@ -1,0 +1,47 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html{
+  display: flex;
+}
+
+:root{
+  --background: #ffffff;
+  --text-primary: #000;
+  --text-secondary: #8e05c2;
+  --accent: #8e05c2;
+  --border: #333;
+  --backgroundImage: url("https://wallpaperaccess.com/full/2958370.jpg");
+}
+
+[data-theme='dark']{
+  --background: #2e2b2b;
+  --text-primary: #fff;
+  --text-secondary: #8e05c2;
+  --accent: #8e05c2;
+  --border: #808080;
+  --backgroundImage: url("https://wallpaperaccess.com/full/5045062.jpg");
+}
+
+body {
+  flex: 1 1;
+  margin: 0;
+  width: 100%;
+  min-height: 100vh;
+}
+
+.App{
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--background);
+  overflow-x: hidden;
+  color: var(--text-primary);
+  transition: all .5s;
+  background: var(--backgroundImage);
+  background-size: cover;
+}
