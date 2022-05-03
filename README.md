@@ -1,6 +1,6 @@
 # Oz-Shurki-20-03-2022
 <h1>
-Abra task - weather app
+Weather app
 </h1>
 
 This weather app is written with TypeScript and React.
