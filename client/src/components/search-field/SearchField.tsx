@@ -6,6 +6,7 @@ import classNames from "classnames";
 import {useDispatch} from "react-redux";
 
 import "./SearchField.css";
+import useDebounce from "../../hooks/useDebounce";
 import {getAutoCompleteResults} from "../../apis/ApiServices";
 
 import {modalActions} from "../../store/slices/modal";
@@ -20,6 +21,7 @@ const SearchField: React.FC<SearchFieldInt> = ({setCity}) => {
     const [theme] = useLocalStorage<string>('theme' ? 'dark' : 'light', '');
     const [results, setResults] = useState<any[]>([]);
     const inputRef = useRef<HTMLInputElement>(null);
+    const debounce = useDebounce();
     const dispatch = useDispatch();
 
 
@@ -43,8 +45,10 @@ const SearchField: React.FC<SearchFieldInt> = ({setCity}) => {
         const inputText = inputRef.current?.value;
 
         try {
-            const results = await getAutoCompleteResults(inputText);
-            setResults(results);
+            debounce(async () => {
+                const results = await getAutoCompleteResults(inputText);
+                setResults(results);
+            },300);
         } catch (err) {
             dispatch(modalActions.toggleModal());
         }
