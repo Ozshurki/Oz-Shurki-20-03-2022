@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect} from "react";
 import {useParams} from "react-router-dom";
 import {motion} from "framer-motion";
 import {RootStateOrAny, useSelector} from "react-redux";
@@ -8,22 +8,14 @@ import SearchField from "../../components/search-field/SearchField";
 import WeatherContent from "../../components/weather-content/WeatherContent";
 import {homeVariants} from "../weather/Weather";
 import {CityType} from "../../shared/types/city";
+import useCity from "../../hooks/useCity";
 
 
 const CityWeather: React.FC = () => {
 
     const {id} = useParams<{ id: string }>();
-    const [locationKey, setLocationKey] = useState<number>(215854);
-    const [city, setCityName] = useState<string>('Tel Aviv');
-    const [country, setCountry] = useState<string>('Israel');
+    const {cityName, countryName, locationKey, setCity} = useCity();
     const savedCities = useSelector((state: RootStateOrAny) => state.favorites.cities);
-
-
-    const setCity = (key: number, cityName: string, countryName: string) => {
-        setLocationKey(key);
-        setCityName(cityName);
-        setCountry(countryName);
-    };
 
     useEffect(() => {
         savedCities.forEach((city: CityType) => {
@@ -42,8 +34,8 @@ const CityWeather: React.FC = () => {
                     exit="exit">
             <SearchField setCity={setCity}/>
             <WeatherContent locationKey={locationKey}
-                            city={city}
-                            country={country}/>
+                            city={cityName}
+                            country={countryName}/>
         </motion.div>
     );
 };
