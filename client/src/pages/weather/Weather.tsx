@@ -8,6 +8,7 @@ import WeatherContent from "../../components/weather-content/WeatherContent";
 import {getLocationKeyByCoordinates} from "../../apis/ApiServices";
 import {modalActions} from "../../store/slices/modal";
 import "./Weather.css";
+import useCity from "../../hooks/useCity";
 
 
 export const homeVariants = {
@@ -31,9 +32,7 @@ export const homeVariants = {
 
 const Weather: React.FC = () => {
 
-    const [locationKey, setLocationKey] = useState<number>(261342);
-    const [cityName, setCityName] = useState<string>("Sur Baher");
-    const [countryName, setCountryName] = useState<string>("Palestine");
+    const {cityName, countryName, setCity, locationKey} = useCity();
     const dispatch = useDispatch();
 
 
@@ -57,13 +56,7 @@ const Weather: React.FC = () => {
     useEffect(() => {
         getCoor();
     }, []);
-
-
-    const setCity = (key: number, cityName: string, countryName: string) => {
-        setLocationKey(key);
-        setCityName(cityName);
-        setCountryName(countryName);
-    };
+    
 
     return (
         <motion.div className="weather-page"
